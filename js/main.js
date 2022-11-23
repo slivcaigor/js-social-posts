@@ -100,9 +100,17 @@ for (let i = 0; i < liked.length; i++) {
     if (!clicked) {
       clicked = true;
       liked[i].classList.add("like-button--liked");
+
+      // ERRORE QUA, NON VUOLE FUNZIONARE
+      let likeCount = document.getElementById(`like-counter-${i + 1}`);
+      likeCount.innerHTML = `${posts[i].likes + 1}`;
+
     } else {
       clicked = false;
       liked[i].classList.remove("like-button--liked");
     }
   });
 }
+
+
+
