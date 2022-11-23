@@ -77,7 +77,7 @@ document.querySelector(".post").innerHTML = posts.map(post =>
       <div class="post__footer">
         <div class="likes js-likes">
           <div class="likes__cta">
-            <a class="like-button  js-like-button" href="#" data-postid="${post.id}">
+            <a class="like-button  js-like-button" href="#!" data-postid="${post.id}">
               <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
               <span class="like-button__label">Mi Piace</span>
             </a>
@@ -90,3 +90,19 @@ document.querySelector(".post").innerHTML = posts.map(post =>
   `
 ).join('')
 
+// Selecting like button from the DOM
+const liked = document.querySelectorAll('.like-button');
+// Setting default variable for clicked to false
+let clicked = false;
+// Loop through the list and attach the event to the current element
+for (let i = 0; i < liked.length; i++) {
+  liked[i].addEventListener("click", function () {
+    if (!clicked) {
+      clicked = true;
+      liked[i].classList.add("like-button--liked");
+    } else {
+      clicked = false;
+      liked[i].classList.remove("like-button--liked");
+    }
+  });
+}
