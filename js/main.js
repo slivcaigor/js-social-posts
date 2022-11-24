@@ -57,7 +57,8 @@ const posts = [
 ];
 
 // Adding content to DOM
-document.querySelector(".post").innerHTML = posts.map(post =>
+let domContent = document.querySelector(".post");
+domContent.innerHTML += posts.map(post =>
   `
       <div class="post__header">
         <div class="post-meta">
@@ -83,7 +84,7 @@ document.querySelector(".post").innerHTML = posts.map(post =>
             </a>
           </div>
           <div class="likes__counter">
-            Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+            Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
           </div>
         </div>
       </div>
@@ -100,17 +101,37 @@ for (let i = 0; i < liked.length; i++) {
     if (!clicked) {
       clicked = true;
       liked[i].classList.add("like-button--liked");
-
-      // ERRORE QUA, NON VUOLE FUNZIONARE
-      let likeCount = document.getElementById(`like-counter-${i + 1}`);
-      likeCount.innerHTML = `${posts[i].likes + 1}`;
-
     } else {
       clicked = false;
       liked[i].classList.remove("like-button--liked");
     }
   });
 }
+
+
+let decreaseLike = 0;
+
+liked.forEach((like, index) => {
+  like.addEventListener("click",
+    function () {
+
+      let likes = posts[index].likes;
+
+      let counter = document.getElementById(`like-counter-${index + 1}`);
+
+      counter.innerHTML = likes + 1;
+
+      if (decreaseLike === 0) {
+        decreaseLike++;
+        counter.innerHTML = likes + decreaseLike;
+
+      } else {
+        decreaseLike--;
+        counter.innerHTML = likes;
+      }
+    }
+  );
+});
 
 
 
